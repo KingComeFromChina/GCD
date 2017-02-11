@@ -30,15 +30,23 @@
     // 测试分组任务
     // [self dispatch_group];
     
-   
+    [self initUI];
     
     
 }
 
+- (void)initUI{
+
+    [self creatImageView];
+    [self creatBtn];
+}
+
 - (void)creatImageView{
 
-    self.imageView = [[UIImageView alloc]initWithFrame:CGRectMake(200, 100, 100, 100)];
+    self.imageView = [[UIImageView alloc]initWithFrame:CGRectMake(150, 100, 150, 150)];
+    self.imageView.backgroundColor = [UIColor yellowColor];
     [self.view addSubview:self.imageView];
+    [self drawRectImage];
 }
 
 - (void)creatBtn{
@@ -47,14 +55,17 @@
 //    _btn.frame = CGRectMake(200, 230, 100, 100);
     
     // 要闪动效果就这样初始化button，否则按上面的
-    _btn  = [[UIButton alloc]initWithFrame:CGRectMake(200, 2030, 100, 100)];
-    _btn.backgroundColor = [UIColor yellowColor];
+    _btn  = [[UIButton alloc]initWithFrame:CGRectMake(200, 280, 100, 50)];
+    _btn.backgroundColor = [UIColor redColor];
+    [self.btn setTitle:@"获取验证码" forState:UIControlStateNormal];
     [_btn addTarget:self action:@selector(btnClick) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:_btn];
 }
 
 - (void)btnClick{
 
+    
+    
      [_btn setTitle:@"重发(60s)" forState:UIControlStateNormal];
     __block int timeout=59; //倒计时时间
     dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
@@ -67,8 +78,8 @@
             dispatch_async(dispatch_get_main_queue(), ^{
                 //设置界面的按钮显示 根据自己需求设置
                 self.btn.userInteractionEnabled = YES;
-                [self.btn setTitle:@"获取图片" forState:UIControlStateNormal];
-                [self drawRectImage];
+                [self.btn setTitle:@"获取验证码" forState:UIControlStateNormal];
+                
             });
         }else{
             int seconds = timeout % 60;
@@ -169,14 +180,14 @@
     });
 }
 
-// GCD创建单例
-- (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event{
-
-    static dispatch_once_t onceToken;
-    dispatch_once(&onceToken, ^{
-        NSLog(@"只执行一次");
-    });
-}
+//// GCD创建单例
+//- (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event{
+//
+//    static dispatch_once_t onceToken;
+//    dispatch_once(&onceToken, ^{
+//        NSLog(@"只执行一次");
+//    });
+//}
 
 - (void)dosomethingByTime{
 
