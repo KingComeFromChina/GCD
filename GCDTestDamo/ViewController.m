@@ -295,7 +295,7 @@
 
 - (void)async_queue:(dispatch_queue_t)queue{
     
-    //同步任务
+    //异步任务
     dispatch_async(queue, ^{
         NSLog(@"异步1 - %@",[NSThread currentThread]);
     });
